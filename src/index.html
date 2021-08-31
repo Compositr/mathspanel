@@ -1,0 +1,134 @@
+<!-- @format -->
+
+<!--
+  Maths Sheet, a free math worksheet generator
+Copyright (C) 2021 Jim Ke
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Maths Panel</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./assets/winstrap.css" />
+
+    <script src="render.js" defer></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+      integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+      crossorigin="anonymous"
+      defer
+    ></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="navbar-global theme-default">
+        <div class="container">
+          <div class="navbar-header">
+            <p class="navbar-brand">Maths Panel</p>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="index.html">Generate Worksheets</a></li>
+              <li><a href="information.html">Information</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container center" id="busy" style="display: none">
+      <p>Maths Panel is busy! Please wait a bit!</p>
+    </div>
+    <div class="container">
+      <h2 class="center">Customise Worksheet</h2>
+      <form>
+        <div class="form-group">
+          <label for="lower">Lower Range</label
+          ><input
+            type="number"
+            name="lower"
+            id="lower"
+            required
+            class="form-control"
+          />
+          <p class="help-block">
+            This program requires random numbers selected from a range. Fill in
+            the lower limit of that range
+          </p>
+          <label for="higher">Upper Range</label
+          ><input
+            type="number"
+            name="higher"
+            id="higher"
+            required
+            class="form-control"
+          />
+          <p class="help-block">
+            This program requires random numbers selected from a range. Fill in
+            the upper limit of that range
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="questions">Amount of questions to generate</label>
+          <input
+            type="number"
+            name="questions"
+            id="questions"
+            required
+            class="form-control"
+            max="65"
+          />
+          <p class="help-block">
+            Amount of questions to generate. Maximum value is 65.
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <br />
+    <div class="container">
+      <h2 class="center">Generate Worksheet</h2>
+      <div class="row section-gallery">
+        <div class="col-md-6">
+          <button class="btn btn-primary btn-block" id="addition">
+            Generate Addition Worksheet
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-primary btn-block" id="subtraction">
+            Generate Subtraction Worksheet
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-primary btn-block" id="division">
+            Generate Division Worksheet
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-primary btn-block" id="multiplication">
+            Generate Multiplication Worksheet
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h2 class="center">Instructions</h2>
+      <p>
+        To generate a worksheet, first fill in all the fields above, with your
+        preferred options. Then select the type of worksheet you would like to
+        generate. For example, if I wanted the generate a worksheet with numbers
+        from 1 to 10, and with 10 questions, I would fill in 1 in the lower
+        range field, 10 in the upper range field and 10 in the amount of
+        questions field.
+      </p>
+    </div>
+    <br />
+  </body>
+</html>
