@@ -3,3 +3,4 @@
 - Added license to information page
 - Cleaned up dependecies
 - Added readme and license files
+- Checks for updates automatically and alerts user

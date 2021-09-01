@@ -1,8 +1,10 @@
 /** @format */
+const { version } = require("../package.json");
 const { remote } = require("electron");
 const { dialog } = remote;
 const { writeFile } = require("fs");
 const { jsPDF } = require("jspdf");
+const $ = require("jquery");
 
 const addition = document.getElementById("addition");
 const subtraction = document.getElementById("subtraction");
@@ -118,9 +120,20 @@ async function makePDF(questions, type) {
   writeFile(filePath, buffer, () => console.log("Wrote file!"));
 }
 
+/**
+ * --------------------
+ * Fetch form data
+ * --------------------
+ */
 function fetchForm() {
   return new FormData(document.querySelector("form"));
 }
+
+/**
+ * ----------------------------------------------------------------------
+ * Visually indicate that the app is busy (show and hide #busy)
+ * ----------------------------------------------------------------------
+ */
 
 function showBusy() {
   document.getElementById("busy").style.display = "block";
@@ -128,3 +141,30 @@ function showBusy() {
 function ceaseBusy() {
   document.getElementById("busy").style.display = "none";
 }
+
+/**
+ * --------------------
+ * Update Detection
+ * --------------------
+ */
+
+async function updateCheck() {
+  const needsUpdate = await require("./updater/index")(version);
+  if (needsUpdate) {
+    document.getElementById("updateAlert").style.display = "block";
+    document.getElementById("updateVersion").innerHTML = needsUpdate;
+  } else {
+    document.getElementById("updateAlert").style.display = "none"
+  }
+};
+updateCheck()
+
+
+
+/**
+ * ------------------------------
+ * Fill in version areas
+ * ------------------------------
+ */
+console.log(`Running mathsgen version ${version}`);
+$("span.version").text(version);
