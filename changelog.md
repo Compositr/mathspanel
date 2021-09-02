@@ -1,7 +1,7 @@
 # v1.2.0 - Algebra Update
 - Added algebra worksheets
 - Revamp interal code
-- Removed redudant files
+- Removed redundant files
 
 # v1.1.0 - LTS Update
 - Add more information to app
