@@ -1,7 +1,7 @@
 /** @format */
 
 const { randomInt } = require("mathjs");
-module.exports = (questionAmount, low, high) => {
+module.exports = {name: "division",execute: (questionAmount, low, high) => {
   const questions = [];
   for (let index = 0; index < questionAmount; index++) {
     let first = randomInt(low, high);
@@ -17,4 +17,4 @@ module.exports = (questionAmount, low, high) => {
     });
   }
   return questions;
-};
+}}

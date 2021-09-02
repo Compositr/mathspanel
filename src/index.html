@@ -113,6 +113,7 @@ You should have received a copy of the GNU General Public License along with thi
             required
             class="form-control"
             max="65"
+            min="1"
           />
           <p class="help-block">
             Amount of questions to generate. Maximum value is 65.
@@ -124,7 +125,7 @@ You should have received a copy of the GNU General Public License along with thi
     <br />
     <div class="container">
       <h2 class="center">Generate Worksheet</h2>
-      <div class="row section-gallery">
+      <div class="row">
         <div class="col-md-6">
           <button class="btn btn-primary btn-block" id="addition">
             Generate Addition Worksheet
@@ -144,6 +145,14 @@ You should have received a copy of the GNU General Public License along with thi
           <button class="btn btn-primary btn-block" id="multiplication">
             Generate Multiplication Worksheet
           </button>
+        </div>
+        <div class="col-md-12">
+          <button class="btn btn-primary btn-block" id="algebra">
+            Generate Algebra Worksheet
+          </button>
+        </div>
+        <div class="col-md-12">
+          <button class="btn btn-secondary btn-block" id="save"><span class="glyph glyph-save"></span> Save as new Preset</button>
         </div>
       </div>
     </div>

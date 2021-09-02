@@ -5,59 +5,39 @@ const { dialog } = remote;
 const { writeFile } = require("fs");
 const { jsPDF } = require("jspdf");
 const $ = require("jquery");
+const fs = require("fs");
+const path = require("path");
 
-const addition = document.getElementById("addition");
-const subtraction = document.getElementById("subtraction");
-const multiplication = document.getElementById("multiplication");
-const division = document.getElementById("division");
-multiplication.onclick = multiplicationSheet;
-addition.onclick = additionSheet;
-subtraction.onclick = subtractionSheet;
-division.onclick = divisionSheet;
+/**
+ * ---------------------------------
+ * Automatic worksheet handler
+ * ---------------------------------
+ */
 
-function subtractionSheet() {
-  showBusy();
-  const form = fetchForm();
-  const questions = require("./generators/minus")(
-    form.get("questions"),
-    form.get("lower"),
-    form.get("higher")
-  );
-  makePDF(questions, "Subtraction");
-  ceaseBusy();
+const generators = {};
+// Get files in ./generators
+const generatorFiles = fs
+  .readdirSync(path.join(__dirname, "./generators"))
+  .filter((f) => f.endsWith(".js"));
+for (const file of generatorFiles) {
+  const generator = require(path.join(__dirname, `./generators/${file}`));
+  generators[generator.name] = generator;
 }
-
-function divisionSheet() {
-  showBusy();
-  const form = fetchForm();
-  const questions = require("./generators/divide")(
-    form.get("questions"),
-    form.get("lower"),
-    form.get("higher")
-  );
-  ceaseBusy();
-}
-
-function multiplicationSheet() {
-  showBusy();
-  const form = fetchForm();
-  const questions = require("./generators/times")(
-    form.get("questions"),
-    form.get("lower"),
-    form.get("higher")
-  );
-  makePDF(questions, "Multiplication");
-  ceaseBusy();
-}
-
-function additionSheet() {
-  const form = fetchForm();
-  const questions = require("./generators/add")(
-    form.get("questions"),
-    form.get("lower"),
-    form.get("higher")
-  );
-  makePDF(questions, "Addition");
+for (const generator in generators) {
+  if (Object.hasOwnProperty.call(generators, generator)) {
+    const element = generators[generator];
+    document.getElementById(element.name).onclick = () => {
+      const form = fetchForm();
+      makePDF(
+        element.execute(
+          form.get("questions"),
+          form.get("lower"),
+          form.get("higher")
+        ),
+        capitalize(element.name)
+      );
+    };
+  }
 }
 
 async function makePDF(questions, type) {
@@ -154,12 +134,10 @@ async function updateCheck() {
     document.getElementById("updateAlert").style.display = "block";
     document.getElementById("updateVersion").innerHTML = needsUpdate;
   } else {
-    document.getElementById("updateAlert").style.display = "none"
+    document.getElementById("updateAlert").style.display = "none";
   }
-};
-updateCheck()
-
-
+}
+updateCheck();
 
 /**
  * ------------------------------
@@ -168,3 +146,12 @@ updateCheck()
  */
 console.log(`Running mathsgen version ${version}`);
 $("span.version").text(version);
+
+/**
+ * ----------------------
+ * Helper functions
+ * ----------------------
+ */
+function capitalize(string) {
+  return string[0].toUpperCase() + string.slice(1);
+}
