@@ -28,9 +28,16 @@ for (const generator in generators) {
     const element = generators[generator];
     document.getElementById(element.name).onclick = () => {
       const form = fetchForm();
+      if (!form.get("higher").length|| !form.get("lower").length) {
+        $("#missingFields").show();
+        $("#missingFields").on("click", () => {
+          $("#missingFields").hide()
+        })
+        return;
+      }
       makePDF(
         element.execute(
-          form.get("questions"),
+          form.get("questions") || 30,
           form.get("lower"),
           form.get("higher")
         ),
