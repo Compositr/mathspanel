@@ -1,3 +1,6 @@
+# v1.2.0 - Algebra Update
+
+
 # v1.1.0 - LTS Update
 - Add more information to app
 - Added license to information page
