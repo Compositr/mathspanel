@@ -1,6 +1,6 @@
 /** @format */
 const { version } = require("../package.json");
-const { remote } = require("electron");
+const { remote, ipcRenderer } = require("electron");
 const { dialog } = remote;
 const { writeFile } = require("fs");
 const { jsPDF } = require("jspdf");
@@ -55,9 +55,12 @@ for (const generator in generators) {
  */
 
 $("#save").on("click", () => {
+  console.log("Save button clicked");
+  $("#saveModal").show();
   const form = fetchForm();
   // Check for missing fields
   if (!form.get("higher").length || !form.get("lower").length) {
+    console.log("Missing fields");
     $("#missingFields").show();
     $("#missingFields").on("click", () => {
       $("#missingFields").hide();
@@ -65,24 +68,66 @@ $("#save").on("click", () => {
     return;
   }
   const presets = db.get("presets");
+
   if (!presets) {
-    $("#saveModal").show();
     $("#saveButton").on("click", () => {
       $("#saveModal").hide();
       const name = new FormData(document.querySelector("form#saveForm")).get(
         "name"
       );
+      const saveForm = new FormData(document.querySelector("form#saveForm"));
       db.set("presets", [
         {
           name,
+          type: saveForm.get("type").toLocaleLowerCase(),
           higher: form.get("higher"),
           lower: form.get("lower"),
           questions: form.get("questions") || 30,
         },
       ]);
     });
+  } else {
+    $("#saveButton").on("click", () => {
+      $("#saveModal").hide();
+      const name = new FormData(document.querySelector("form#saveForm")).get(
+        "name"
+      );
+      const saveForm = new FormData(document.querySelector("form#saveForm"));
+      presets.push({
+        name,
+        higher: form.get("higher"),
+        lower: form.get("lower"),
+        questions: form.get("questions") || 30,
+      });
+    });
   }
 });
+
+// Load preset buttons
+const presets = db.get("presets");
+if (!presets) $("#presetsBox").hide();
+else {
+  for (const preset of presets) {
+    $("#presetsBox").append(
+      `<button class="btn btn-primary" id="preset-${preset.name}">${preset.name}</button>`
+    );
+
+    $(`#preset-${preset.name}`).attr("data-name", preset.name);
+    $(`#preset-${preset.name}`).on("click", () => {
+      const name = $(`#preset-${preset.name}`).data("name");
+      const thisPreset = db.get("presets").find((e) => e.name === name);
+      console.table(generators);
+      makePDF(
+        generators[thisPreset.type].execute(
+          thisPreset.questions,
+          thisPreset.lower,
+          thisPreset.higher
+        ),
+        capitalize(thisPreset.type)
+      );
+    });
+  }
+}
 
 async function makePDF(questions, type) {
   showBusy();

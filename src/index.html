@@ -25,7 +25,6 @@ You should have received a copy of the GNU General Public License along with thi
     <link rel="stylesheet" href="./assets/winstrap.css" />
 
     <script src="render.js" defer></script>
-
     <script src="./assets/bootstrap.min.js"></script>
   </head>
   <body>
@@ -159,6 +158,9 @@ You should have received a copy of the GNU General Public License along with thi
         </div>
       </div>
     </div>
+    <div class="container" id="presetsBox">
+      <h2 class="center">User Presets</h2>
+    </div>
     <div class="container">
       <h2 class="center">Instructions</h2>
       <p>
@@ -202,6 +204,7 @@ You should have received a copy of the GNU General Public License along with thi
         </div>
       </div>
     </div>
+
     <div
       class="modal"
       id="saveModal"
@@ -213,13 +216,16 @@ You should have received a copy of the GNU General Public License along with thi
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title center">
-              Choose a name for your new preset
+              Choose a name & type for your new preset
             </h4>
           </div>
           <div class="modal-body">
-            <form action="" id="saveForm">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" required/>
+            <form id="saveForm">
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name" required />
+              <br>
+              <label for="type">Type of worksheet</label>
+              <input type="text" name="type" id="type" required />
             </form>
           </div>
           <div class="modal-footer">

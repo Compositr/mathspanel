@@ -1,6 +1,7 @@
 # v1.2.0 - Algebra Update
 - Added algebra worksheets
 - Revamp interal code
+- Added presets (custom worksheets)
 - Removed redundant files
 
 # v1.1.0 - LTS Update
