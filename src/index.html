@@ -78,7 +78,7 @@ You should have received a copy of the GNU General Public License along with thi
     </div>
     <div class="container">
       <h2 class="center">Customise Worksheet</h2>
-      <form>
+      <form id="query">
         <div class="form-group">
           <label for="lower">Lower Range</label
           ><input
@@ -197,6 +197,34 @@ You should have received a copy of the GNU General Public License along with thi
           <div class="modal-footer">
             <button class="btn-primary btn-block" data-dismiss="modal">
               Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal"
+      id="saveModal"
+      tabindex="-1"
+      aria-hidden="true"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title center">
+              Choose a name for your new preset
+            </h4>
+          </div>
+          <div class="modal-body">
+            <form action="" id="saveForm">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" required/>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary btn-block" id="saveButton">
+              <span class="glyph glyph-save"></span> Save
             </button>
           </div>
         </div>

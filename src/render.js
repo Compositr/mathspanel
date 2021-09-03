@@ -7,6 +7,7 @@ const { jsPDF } = require("jspdf");
 const $ = require("jquery");
 const fs = require("fs");
 const path = require("path");
+const db = require("./database/index");
 
 /**
  * ---------------------------------
@@ -28,11 +29,11 @@ for (const generator in generators) {
     const element = generators[generator];
     document.getElementById(element.name).onclick = () => {
       const form = fetchForm();
-      if (!form.get("higher").length|| !form.get("lower").length) {
+      if (!form.get("higher").length || !form.get("lower").length) {
         $("#missingFields").show();
         $("#missingFields").on("click", () => {
-          $("#missingFields").hide()
-        })
+          $("#missingFields").hide();
+        });
         return;
       }
       makePDF(
@@ -46,6 +47,42 @@ for (const generator in generators) {
     };
   }
 }
+
+/**
+ * --------------------
+ * Preset handler
+ * --------------------
+ */
+
+$("#save").on("click", () => {
+  const form = fetchForm();
+  // Check for missing fields
+  if (!form.get("higher").length || !form.get("lower").length) {
+    $("#missingFields").show();
+    $("#missingFields").on("click", () => {
+      $("#missingFields").hide();
+    });
+    return;
+  }
+  const presets = db.get("presets");
+  if (!presets) {
+    $("#saveModal").show();
+    $("#saveButton").on("click", () => {
+      $("#saveModal").hide();
+      const name = new FormData(document.querySelector("form#saveForm")).get(
+        "name"
+      );
+      db.set("presets", [
+        {
+          name,
+          higher: form.get("higher"),
+          lower: form.get("lower"),
+          questions: form.get("questions") || 30,
+        },
+      ]);
+    });
+  }
+});
 
 async function makePDF(questions, type) {
   showBusy();
@@ -113,7 +150,7 @@ async function makePDF(questions, type) {
  * --------------------
  */
 function fetchForm() {
-  return new FormData(document.querySelector("form"));
+  return new FormData(document.querySelector("form#query"));
 }
 
 /**
