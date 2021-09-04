@@ -3,6 +3,7 @@
 - Revamp interal code
 - Added presets (custom worksheets)
 - Removed redundant files
+- Fixed some answers not showing/getting cut off
 
 # v1.1.0 - LTS Update
 - Add more information to app
