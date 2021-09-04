@@ -99,6 +99,7 @@ $("#save").on("click", () => {
         lower: form.get("lower"),
         questions: form.get("questions") || 30,
       });
+      db.set("presets", presets)
     });
   }
 });
