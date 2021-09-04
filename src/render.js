@@ -176,7 +176,7 @@ async function makePDF(questions, type) {
   let x = 0;
   let fromTop = 3;
   for (let i = 0; i < questions.length; i++) {
-    if (x % 6 == 0) {
+    if (x % 5 == 0) {
       fromTop += 2;
       x = 0;
     }
