@@ -59,7 +59,10 @@ $("#save").on("click", () => {
   $("#saveModal").show();
   const form = fetchForm();
   // Check for missing fields
-  if (!form.get("higher").length || !form.get("lower").length) {
+  if (
+    !form.get("higher") + "".length ||
+    !form.get("lower") + "".length /* Cocerce into string */
+  ) {
     console.log("Missing fields");
     $("#missingFields").show();
     $("#missingFields").on("click", () => {
@@ -72,17 +75,21 @@ $("#save").on("click", () => {
   if (!presets) {
     $("#saveButton").on("click", () => {
       $("#saveModal").hide();
-      const name = new FormData(document.querySelector("form#saveForm")).get(
-        "name"
-      );
+      const name =
+        new FormData(document.querySelector("form#saveForm")).get("name") + ""; // Coerce into string
       const saveForm = new FormData(document.querySelector("form#saveForm"));
+      /**
+       * Sanitise user input
+       */
+      const sanitised = name.replaceAll(" ", "-");
       db.set("presets", [
         {
           name,
-          type: saveForm.get("type").toLocaleLowerCase(),
-          higher: form.get("higher"),
-          lower: form.get("lower"),
-          questions: form.get("questions") || 30,
+          sanitised,
+          type: saveForm.get("type")+"".toLocaleLowerCase(),
+          higher: form.get("higher")+"",
+          lower: form.get("lower")+"",
+          questions: +form.get("questions") || 30,
         },
       ]);
     });
@@ -99,7 +106,7 @@ $("#save").on("click", () => {
         lower: form.get("lower"),
         questions: form.get("questions") || 30,
       });
-      db.set("presets", presets)
+      db.set("presets", presets);
     });
   }
 });
@@ -110,14 +117,13 @@ if (!presets) $("#presetsBox").hide();
 else {
   for (const preset of presets) {
     $("#presetsBox").append(
-      `<button class="btn btn-primary" id="preset-${preset.name}">${preset.name}</button>`
+      `<button class="btn btn-primary" id="preset-${preset.sanitised}">${preset.name}</button>`
     );
 
-    $(`#preset-${preset.name}`).attr("data-name", preset.name);
-    $(`#preset-${preset.name}`).on("click", () => {
-      const name = $(`#preset-${preset.name}`).data("name");
+    $(`#preset-${preset.sanitised}`).attr("data-name", preset.name);
+    $(`#preset-${preset.sanitised}`).on("click", () => {
+      const name = $(`#preset-${preset.sanitised}`).data("name");
       const thisPreset = db.get("presets").find((e) => e.name === name);
-      console.table(generators);
       makePDF(
         generators[thisPreset.type].execute(
           thisPreset.questions,
