@@ -1,3 +1,6 @@
+# v1.2.1 - Algebra Update Patch 1
+- Renamed "presets" to "Templates" after user feedback
+
 # v1.2.0 - Algebra Update
 - Added algebra worksheets
 - Revamp interal code
