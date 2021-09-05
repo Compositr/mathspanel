@@ -86,9 +86,9 @@ $("#save").on("click", () => {
         {
           name,
           sanitised,
-          type: saveForm.get("type")+"".toLocaleLowerCase(),
-          higher: form.get("higher")+"",
-          lower: form.get("lower")+"",
+          type: saveForm.get("type") + "".toLocaleLowerCase(),
+          higher: form.get("higher") + "",
+          lower: form.get("lower") + "",
           questions: +form.get("questions") || 30,
         },
       ]);
@@ -100,8 +100,12 @@ $("#save").on("click", () => {
         "name"
       );
       const saveForm = new FormData(document.querySelector("form#saveForm"));
+      const sanitised = name.replaceAll(" ", "-");
+      console.log(saveForm.get("type"));
       presets.push({
         name,
+        sanitised,
+        type: saveForm.get("type") + "".toLocaleLowerCase(),
         higher: form.get("higher"),
         lower: form.get("lower"),
         questions: form.get("questions") || 30,
