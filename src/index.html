@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <!--
-  Maths Sheet, a free math worksheet generator
+  Maths Panel, a free math worksheet generator
 Copyright (C) 2021 Jim Ke
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -22,10 +22,11 @@ You should have received a copy of the GNU General Public License along with thi
       window.$ = window.jQuery = require("./assets/jquery.min.js");
     </script>
     <link rel="stylesheet" href="index.css" />
+    <script src="./assets/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./assets/winstrap.css" />
 
     <script src="render.js" defer></script>
-    <script src="./assets/bootstrap.min.js"></script>
+    
   </head>
   <body>
     <!-- Update -->
@@ -65,7 +66,9 @@ You should have received a copy of the GNU General Public License along with thi
           </div>
           <div class="navbar">
             <ul class="nav navbar-nav">
-              <li><a href="index.html">Generate Worksheets</a></li>
+              <li>
+                <a href="index.html" class="active">Generate Worksheets</a>
+              </li>
               <li><a href="information.html">Information</a></li>
             </ul>
           </div>
@@ -79,7 +82,12 @@ You should have received a copy of the GNU General Public License along with thi
       <h2 class="center">Customise Worksheet</h2>
       <form id="query">
         <div class="form-group">
-          <label for="lower">Lower Range</label
+          <label
+            for="lower"
+            data-toggle="tooltip"
+            title="This program requires random numbers selected from a range. Fill in
+            the lower limit of that range"
+            >Lower Range (hover for more information)</label
           ><input
             type="number"
             name="lower"
@@ -87,11 +95,13 @@ You should have received a copy of the GNU General Public License along with thi
             required
             class="form-control"
           />
-          <p class="help-block">
-            This program requires random numbers selected from a range. Fill in
-            the lower limit of that range
-          </p>
-          <label for="higher">Upper Range</label
+
+          <label
+            for="higher"
+            data-toggle="tooltip"
+            title="This program requires random numbers selected from a range. Fill in
+            the upper limit of that range"
+            >Upper Range (hover for more information)</label
           ><input
             type="number"
             name="higher"
@@ -99,10 +109,6 @@ You should have received a copy of the GNU General Public License along with thi
             required
             class="form-control"
           />
-          <p class="help-block">
-            This program requires random numbers selected from a range. Fill in
-            the upper limit of that range
-          </p>
         </div>
         <div class="form-group">
           <label for="questions">Amount of questions to generate</label>
@@ -115,7 +121,7 @@ You should have received a copy of the GNU General Public License along with thi
             max="65"
             min="1"
           />
-          <p class="help-block">
+          <p class="help">
             Amount of questions to generate. Maximum value is 65.
           </p>
         </div>
@@ -232,14 +238,14 @@ You should have received a copy of the GNU General Public License along with thi
                 />
               </div>
               <div class="form-group">
-                  <label for="type">Type of worksheet</label>
-                  <select name="type" id="type" class="form-select">
-                    <option value="subtraction">Subtraction</option>
-                    <option value="algebra">Algebra</option>
-                    <option value="multiplication">Multiplication</option>
-                    <option value="divsion">Division</option>
-                    <option value="addition">Addition</option>
-                  </select>
+                <label for="type">Type of worksheet</label>
+                <select name="type" id="type" class="form-select">
+                  <option value="subtraction">Subtraction</option>
+                  <option value="algebra">Algebra</option>
+                  <option value="multiplication">Multiplication</option>
+                  <option value="divsion">Division</option>
+                  <option value="addition">Addition</option>
+                </select>
               </div>
             </form>
           </div>
