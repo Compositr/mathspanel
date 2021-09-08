@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const fs = require("fs")
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -49,5 +50,20 @@ app.on('activate', () => {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+/**
+ * ------------------------------
+ * ipcMain auto handler
+ * ------------------------------
+ */
+const ipcs = {}
+const ipcFiles = fs.readdirSync(path.join(__dirname, "./ipc")).filter((f) => f.endsWith(".js"))
+for(const file of ipcFiles) {
+  const ipc = require(path.join(__dirname, `./ipc/${file}`));
+  ipcs[ipc.event] = ipc;
+}
+for (const ipc in ipcs) {
+  if (Object.hasOwnProperty.call(ipcs, ipc)) {
+    const element = ipcs[ipc];
+    ipcMain.on(element.channel, element.execute)
+  }
+}

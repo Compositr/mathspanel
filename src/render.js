@@ -1,9 +1,6 @@
 /** @format */
 const { version } = require("../package.json");
-const { remote, ipcRenderer } = require("electron");
-const { dialog } = remote;
-const { writeFile } = require("fs");
-const { jsPDF } = require("jspdf");
+const { ipcRenderer } = require("electron");
 const $ = require("jquery");
 const fs = require("fs");
 const path = require("path");
@@ -141,64 +138,36 @@ else {
 }
 
 async function makePDF(questions, type) {
-  showBusy();
-  // Timestamp Logic
-  const d = new Date();
-  const genMonth = new Intl.DateTimeFormat("en-AU", { month: "long" }).format(
-    d
-  );
-  const genYear = new Intl.DateTimeFormat("en-AU", {
-    year: "numeric",
-  }).format(d);
-
-  const doc = new jsPDF({
-    orientation: "p",
-    unit: "cm",
-  });
-  doc.setFont("Times");
-  doc.setFontSize(24);
-  doc.text(`${type} Worksheet`, 1, 2);
-  doc.setFontSize(12);
-  doc.text(`Generated ${d.getDate()}, ${genMonth} ${genYear}`, 1, 2.7);
-
-  // Generate first page
-  let top = 3;
-  let n = 0;
-
-  for (let index = 0; index < questions.length; index++) {
-    const e = questions[index];
-    if (n % 5 == 0) {
-      top += 2;
-      n = 0;
-    }
-    doc.text(`Q${index + 1}. ${e.question}`, n * 4 + 1, top);
-    n++;
-  }
-  // Answer page
-  doc.addPage();
-  doc.text("Answer Key", 1, 1);
-  let x = 0;
-  let fromTop = 3;
-  for (let i = 0; i < questions.length; i++) {
-    if (x % 5 == 0) {
-      fromTop += 2;
-      x = 0;
-    }
-    const element = questions[i];
-
-    doc.text(`A${i + 1}. ${element.answer}`, x * 4 + 1, fromTop);
-    x++;
-  }
-  ceaseBusy();
-  // Output document as blob and get user to save it
-  const buffer = Buffer.from(await doc.output("blob").arrayBuffer());
-
-  const { filePath } = await dialog.showSaveDialog({
-    buttonLabel: "Save worksheet",
-    defaultPath: "worksheet.pdf",
-  });
-  writeFile(filePath, buffer, () => console.log("Wrote file!"));
+  ipcRenderer.send("main", { questions, type });
 }
+
+/**
+ * --------------------
+ * ipc reply handler
+ * --------------------
+ */
+const replyTypes = ["version", "update"];
+const ipcs = {};
+const ipcFiles = fs
+  .readdirSync(path.join(__dirname, "./ipc-reply"))
+  .filter((f) => f.endsWith(".js"));
+for (const file of ipcFiles) {
+  const ipc = require(path.join(__dirname, `./ipc-reply/${file}`));
+  ipcs[ipc.event] = ipc;
+}
+ipcRenderer.on("reply", (event, data) => {
+  const { type } = data;
+  if (!replyTypes.includes(type))
+    throw new Error(`${type} is not a valid type`);
+  for (const ipc in ipcs) {
+    if (Object.hasOwnProperty.call(ipcs, ipc)) {
+      const element = ipcs[ipc];
+      if (element.name === type) {
+        element.execute(event, data);
+      }
+    }
+  }
+});
 
 /**
  * --------------------
