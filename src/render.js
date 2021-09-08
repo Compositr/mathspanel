@@ -137,6 +137,11 @@ else {
   }
 }
 
+/**
+ * Make a PDF from a set of questions
+ * @param {Object[]} questions Array of Question objects
+ * @param {String} type Type of worksheet
+ */
 async function makePDF(questions, type) {
   ipcRenderer.send("main", { questions, type });
 }
