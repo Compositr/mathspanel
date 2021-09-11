@@ -3,6 +3,7 @@
 # v1.2.1 - Algebra Update Patch 1
 - Restructured internal code to use inter-process communication (ipc)
 - Renamed "presets" to "Templates" after user feedback
+- Removed unneeded code
 
 # v1.2.0 - Algebra Update
 
