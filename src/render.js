@@ -229,15 +229,3 @@ $("span.version").text(version);
 function capitalize(string) {
   return string[0].toUpperCase() + string.slice(1);
 }
-
-/**
- * ----------
- * Tooltips
- * ----------
- */
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip({
-    template:
-      '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>',
-  });
-});
