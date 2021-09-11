@@ -1,7 +1,7 @@
 /** @format */
 const { jsPDF } = require("jspdf");
 const { Buffer } = require("buffer");
-const { execute } = require("../tools/saveFile");
+const exe = require("../tools/saveFile").execute;
 
 module.exports = {
   event: "makePDF",
@@ -77,6 +77,6 @@ module.exports = {
      * --------------------
      */
     const buffer = Buffer.from(doc.output("arraybuffer"));
-    execute("buffer", { type: "buffer", payload: buffer });
+    exe("buffer", { type: "buffer", payload: buffer });
   },
 };
