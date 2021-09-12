@@ -1,13 +1,13 @@
 /** @format */
 
-const $ = require("jquery")
+const $ = require("jquery");
 
 /**
  * Fill in version areas
  */
 const { version } = require("../package.json");
 console.log(`Running mathsgen version ${version}`);
-$("span.version").text(version)
+$("span.version").text(version);
 
 /**
  * Collapsible

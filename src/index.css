@@ -7,51 +7,11 @@ body {
   padding: 2rem;
   width: 100vw;
   height: 100vh;
+  padding-top: 65px;
 }
 h1 {
   left: 50%;
 }
 .center {
   text-align: center;
-}
-#busy {
-  background-color: gray;
-  color: white;
-}
-
-/* Collapsible content */
-.collapsible {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-
-/* Form Select */
-.form-select {
-  display: block;
-  width: auto;
-  height: 36px;
-  padding: 4px 8px;
-  font-size: 15px;
-  line-height: 1.5625;
-  color: rgba(0, 0, 0);
-  background-color: #ffffff;
-  background-image: none;
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 0px;
-  /* -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0);
-  -webkit-transition: border-color ease-in-out 0.15s,
-    box-shadow ease-in-out 0.15s;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; */
-}
-.form-select::after {
-  font-family: "winjs-symbols";
-  content: "";
-}
-
-option {
-  color: black;
 }

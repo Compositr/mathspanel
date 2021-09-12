@@ -220,3 +220,21 @@ $("span.version").text(version);
 function capitalize(string) {
   return string[0].toUpperCase() + string.slice(1);
 }
+
+/**
+ * ------------------------------
+ * css:sticky workaround
+ * ------------------------------
+ */
+window.addEventListener(
+  "scroll",
+  (event) => {
+    const stickyShim = event.target.querySelector(".sticky-workaround");
+    if (stickyShim) {
+      stickyShim.style.position = "relative";
+      stickyShim.offsetHeight;
+      stickyShim.style.position = "";
+    }
+  },
+  true
+);

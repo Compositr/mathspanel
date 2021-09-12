@@ -14,17 +14,27 @@
     <link rel="stylesheet" href="./assets/bootstrap.min.css" />
   </head>
   <body>
-    <nav class="navbar navbar-default">
-      <div class="navbar-global theme-default">
-        <div class="container">
-          <div class="navbar-header">
-            <p class="navbar-brand">Maths Panel</p>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="index.html">Generate Worksheets</a></li>
-              <li><a href="information.html" class="active">Information</a></li>
-            </ul>
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+      id="navbar"
+    >
+      <div class="container-fluid">
+        <a href="index.html" class="navbar-brand">Maths Panel</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar"
+          aria-controls="navbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+          <div class="navbar-nav">
+            <a href="index.html" class="nav-link">Generate Worksheets</a>
+            <a href="information.html" class="nav-link active">Information</a>
           </div>
         </div>
       </div>

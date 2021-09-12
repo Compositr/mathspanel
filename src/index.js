@@ -18,6 +18,7 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      experimentalFeatures: true,
     },
   });
 
@@ -65,7 +66,7 @@ for (const ipc in ipcs) {
   if (Object.hasOwnProperty.call(ipcs, ipc)) {
     const element = ipcs[ipc];
     ipcMain.on(element.channel, (event, data) => {
-      if(data.event !== element.event) return;
+      if (data.event !== element.event) return;
       element.execute(event, data);
     });
   }
