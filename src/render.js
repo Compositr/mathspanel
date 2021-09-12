@@ -143,7 +143,7 @@ else {
  * @param {String} type Type of worksheet
  */
 async function makePDF(questions, type) {
-  ipcRenderer.send("main", { questions, type });
+  ipcRenderer.send("main", { event: "makePDF", questions, type });
 }
 
 /**
@@ -151,7 +151,7 @@ async function makePDF(questions, type) {
  * ipc reply handler
  * --------------------
  */
-const replyTypes = ["version", "update"];
+const replyTypes = ["version", "update", "data"];
 const ipcs = {};
 const ipcFiles = fs
   .readdirSync(path.join(__dirname, "./ipc-reply"))
@@ -202,16 +202,7 @@ function ceaseBusy() {
  * --------------------
  */
 
-async function updateCheck() {
-  const needsUpdate = await require("./updater/index")(version);
-  if (needsUpdate) {
-    document.getElementById("updateAlert").style.display = "block";
-    document.getElementById("updateVersion").innerHTML = needsUpdate;
-  } else {
-    document.getElementById("updateAlert").style.display = "none";
-  }
-}
-updateCheck();
+ipcRenderer.send("background", { event: "updateCheck" });
 
 /**
  * ------------------------------

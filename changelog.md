@@ -4,6 +4,7 @@
 - Restructured internal code to use inter-process communication (ipc)
 - Renamed "presets" to "Templates" after user feedback
 - Removed unneeded code
+- Added internal types
 
 # v1.2.0 - Algebra Update
 

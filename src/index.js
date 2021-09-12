@@ -24,7 +24,6 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, "index.html"));
   mainWindow.maximize();
-
 };
 
 // This method will be called when Electron has finished
@@ -65,6 +64,9 @@ for (const file of ipcFiles) {
 for (const ipc in ipcs) {
   if (Object.hasOwnProperty.call(ipcs, ipc)) {
     const element = ipcs[ipc];
-    ipcMain.on(element.channel, element.execute);
+    ipcMain.on(element.channel, (event, data) => {
+      if(data.event !== element.event) return;
+      element.execute(event, data);
+    });
   }
 }
