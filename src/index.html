@@ -16,50 +16,15 @@ You should have received a copy of the GNU General Public License along with thi
   <head>
     <meta charset="UTF-8" />
     <title>Maths Panel</title>
-    <!-- Weird Workaround -->
-    <script src="./assets/jquery.min.js"></script>
-    <script>
-      window.$ = window.jQuery = require("./assets/jquery.min.js");
-    </script>
-    <link rel="stylesheet" href="index.css" />
-    <script src="./assets/jquery/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="./assets/jquery/jquery-ui.min.css" />
-
-    <script src="./assets/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./assets/winstrap.css" />
-
+    <script src="./assets/jquery.min.js" defer></script>
+    <script src="./assets/bootstrap.min.js" defer></script>
     <script src="render.js" defer></script>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./assets/bootstrap.min.css" />
+
+    
   </head>
   <body>
-    <!-- Update -->
-    <div
-      id="updateAlert"
-      class="alert alert-info alert-dismissible fade in"
-      role="alert"
-    >
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <i class="glyph glyph-cancel" aria-hidden="true"></i>
-      </button>
-      <div class="alert-title">A new update is avavliable</div>
-      <div class="row">
-        <div class="col-md-20">
-          <p>
-            You are on version <span class="version"></span>. The latest version
-            is <span id="updateVersion"></span>
-          </p>
-        </div>
-        <div class="col-md-4">
-          <a href="//github.com/cooljim/mathspanel/releases"
-            >Show me the Releases page</a
-          >
-        </div>
-      </div>
-    </div>
     <nav class="navbar navbar-default">
       <div class="navbar-global theme-default">
         <div class="container">
