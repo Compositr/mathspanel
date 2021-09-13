@@ -19,7 +19,16 @@ module.exports = {
     try {
       fs.writeFileSync(dir.filePath, buffer);
     } catch (err) {
-      console.log(`User cancelled save! Error ${err}`);
+      let userFriendlyError = "The file did not save correctly."
+      console.log(`User cancelled save or something went wrong! Error ${err}`);
+      if(err.toString().includes("ENOENT")) return;
+      if(err.toString().includes("EBUSY")) userFriendlyError = "Another program has the file opened. This has prevented Maths Panel from overwriting it!"
+      if(err.toString().includes("EACCES")) userFriendlyError = "You don't have the appropriate permissions to write the file there!"
+      dialog.showMessageBox({
+        title: "An error occured whilst trying to save a file!",
+        message: `We're sorry, but an error occured whilst trying to save that file. ${userFriendlyError}`,
+        type: "error"
+      })
     }
   },
 };

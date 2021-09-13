@@ -4,6 +4,7 @@ const { ipcRenderer } = require("electron");
 const $ = require("jquery");
 const fs = require("fs");
 const path = require("path");
+const savePreset = require("./tools/savePreset").execute;
 const db = require("./database/index");
 
 /**
@@ -21,115 +22,62 @@ for (const file of generatorFiles) {
   const generator = require(path.join(__dirname, `./generators/${file}`));
   generators[generator.name] = generator;
 }
-for (const generator in generators) {
-  if (Object.hasOwnProperty.call(generators, generator)) {
-    const element = generators[generator];
-    document.getElementById(element.name).onclick = () => {
-      const form = fetchForm();
-      if (!form.get("higher").length || !form.get("lower").length) {
-        $("#missingFields").show();
-        $("#missingFields").on("click", () => {
-          $("#missingFields").hide();
-        });
-        return;
-      }
-      makePDF(
-        element.execute(
-          form.get("questions") || 30,
-          form.get("lower"),
-          form.get("higher")
-        ),
-        capitalize(element.name)
-      );
-    };
-  }
-}
+// Listen for modal button press
+$("#submitWorksheetModal").on("click", () => {
+  const formData = {};
+  const serialformData = $("#worksheetModalForm").serializeArray();
+  serialformData.forEach((e) => {
+    formData[e.name] = e.value;
+  });
+  makePDF(
+    generators[formData.type].execute(
+      formData.questions,
+      formData.min,
+      formData.max
+    ),
+    capitalize(formData.type)
+  );
+});
 
 /**
  * --------------------
- * Preset handler
+ * Preset save handler
+ * --------------------
+ */
+$("#submitPresetModal").on("click", () => {
+  const formData = {};
+  const serialFormData = $("#presetModalForm").serializeArray();
+  serialFormData.forEach((e) => {
+    formData[e.name] = e.value;
+  });
+  console.table(formData)
+  console.log(serialFormData)
+  savePreset(formData);
+});
+
+/**
+ * --------------------
+ * Preset loader
  * --------------------
  */
 
-$("#save").on("click", () => {
-  console.log("Save button clicked");
-  $("#saveModal").show();
-  const form = fetchForm();
-  // Check for missing fields
-  if (
-    !form.get("higher") + "".length ||
-    !form.get("lower") + "".length /* Cocerce into string */
-  ) {
-    console.log("Missing fields");
-    $("#missingFields").show();
-    $("#missingFields").on("click", () => {
-      $("#missingFields").hide();
-    });
-    return;
-  }
-  const presets = db.get("presets");
-
-  if (!presets) {
-    $("#saveButton").on("click", () => {
-      $("#saveModal").hide();
-      const name =
-        new FormData(document.querySelector("form#saveForm")).get("name") + ""; // Coerce into string
-      const saveForm = new FormData(document.querySelector("form#saveForm"));
-      /**
-       * Sanitise user input
-       */
-      const sanitised = name.replaceAll(" ", "-");
-      db.set("presets", [
-        {
-          name,
-          sanitised,
-          type: saveForm.get("type") + "".toLocaleLowerCase(),
-          higher: form.get("higher") + "",
-          lower: form.get("lower") + "",
-          questions: +form.get("questions") || 30,
-        },
-      ]);
-    });
-  } else {
-    $("#saveButton").on("click", () => {
-      $("#saveModal").hide();
-      const name = new FormData(document.querySelector("form#saveForm")).get(
-        "name"
-      );
-      const saveForm = new FormData(document.querySelector("form#saveForm"));
-      const sanitised = name.replaceAll(" ", "-");
-      console.log(saveForm.get("type"));
-      presets.push({
-        name,
-        sanitised,
-        type: saveForm.get("type") + "".toLocaleLowerCase(),
-        higher: form.get("higher"),
-        lower: form.get("lower"),
-        questions: form.get("questions") || 30,
-      });
-      db.set("presets", presets);
-    });
-  }
-});
-
-// Load preset buttons
-const presets = db.get("presets");
+const presets = db.get("presetsv2");
 if (!presets) $("#presetsBox").hide();
 else {
   for (const preset of presets) {
     $("#presetsBox").append(
-      `<button class="btn btn-primary" id="preset-${preset.sanitised}">${preset.name}</button>`
+      `<button class="btn btn-outline-primary w-100" id="preset-${preset.sanitised}">${preset.name}</button>`
     );
 
     $(`#preset-${preset.sanitised}`).attr("data-name", preset.name);
     $(`#preset-${preset.sanitised}`).on("click", () => {
       const name = $(`#preset-${preset.sanitised}`).data("name");
-      const thisPreset = db.get("presets").find((e) => e.name === name);
+      const thisPreset = db.get("presetsv2").find((e) => e.name === name);
       makePDF(
         generators[thisPreset.type].execute(
           thisPreset.questions,
           thisPreset.lower,
-          thisPreset.higher
+          thisPreset.upper
         ),
         capitalize(thisPreset.type)
       );
@@ -238,3 +186,15 @@ window.addEventListener(
   },
   true
 );
+
+/**
+ * ----------
+ * Tooltips
+ * ----------
+ */
+var tooltipTriggerList = [].slice.call(
+  document.querySelectorAll('[data-bs-toggle="tooltip"]')
+);
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl);
+});

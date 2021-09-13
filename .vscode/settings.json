@@ -1,6 +1,6 @@
 {
   "files.exclude": {
-    "**/*.dat": true,
+    "**/*.dat": false,
     "**/dist/": true,
     "**/build/": true,
     "**/bin/": true,
