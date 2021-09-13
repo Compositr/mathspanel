@@ -6,8 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maths Panel</title>
-    <script src="./assets/jquery.min.js" defer></script>
-    <script src="./assets/bootstrap.min.js" defer></script>
+    <script src="./assets/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+      defer
+    ></script>
     <script src="render.js" defer></script>
     <script src="./assets/info.js" defer></script>
     <link rel="stylesheet" href="index.css" />
@@ -33,20 +38,24 @@
         </button>
         <div class="collapse navbar-collapse">
           <div class="navbar-nav">
-            <a href="index.html" class="nav-link">Generate Worksheets</a>
-            <a href="information.html" class="nav-link active">Information</a>
+            <a href="index.html" class="nav-link active">Generate Worksheets</a>
+            <a href="information.html" class="nav-link" id="infoNavbarLink"
+              >Information</a
+            >
           </div>
         </div>
       </div>
     </nav>
     <h1 class="center">Information</h1>
-    <div class="row row-sm">
-      <div class="col-md-12">
+    <div class="row">
+      <div class="col">
         <h2 class="center">App Information</h2>
-        <p>App version: <span class="version"></span></p>
+        <p>
+          App version: <code><span class="version"></span></code>
+        </p>
         <p>App developer: Jim Ke</p>
       </div>
-      <div class="col-md-12">
+      <div class="col">
         <h2 class="center">Licence Information</h2>
         <p>© Copyright Jim Ke (All rights reserved)</p>
         <p>
@@ -54,14 +63,16 @@
           license is as follows
         </p>
         <hr />
-        <button
+        <a
           type="button"
-          class="btn btn-secondary btn-block collapseButton"
+          class="btn btn-secondary w-100"
+          data-bs-toggle="collapse"
+          data-bs-target="#license"
+          href="#license"
         >
           See full license
-        </button>
-        <p class="collapsible">
-          <br />
+        </a>
+        <p class="collapse" id="license">
           GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright © 2007
           Free Software Foundation, Inc. <https://fsf.org/> Everyone is
           permitted to copy and distribute verbatim copies of this license
@@ -533,29 +544,25 @@
           copy of the Program in return for a fee. END OF TERMS AND CONDITIONS
         </p>
       </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <h2 class="center">Motivation</h2>
-          <p>
-            Annoyed at the lack of native apps for generating maths worksheets,
-            and not very happy at the excess momnetization and often-paywalled
-            online versions, I decided to create
-            <a href="//github.com/cooljim/mathsgen">mathsgen</a>, a
-            console-based application which can generate maths worksheets.
-            However, it was janky, weird to work with and most importantly did
-            not have a graphical user interface, which many initial beta testers
-            of mathsgen wanted. So, I decided to look into options to move my
-            existing backend logic and somehow slap that <i>nice</i> GUI on it.
-            I decided to use Electron as the frontend engine, and after some
-            tinkering I found out the basics and moved most of the backend logic
-            from mathsgen to this application. Mathsgen will still recieve
-            periodic patch updates, however all new features will be added here.
-            Mathsgen is officially deprecated, and (when I get round to it) I
-            will put up deprecation warnings on it's repo.
-          </p>
-        </div>
+      <div class="col">
+        <h2 class="center">Motivation</h2>
+        <p>
+          Annoyed at the lack of native apps for generating maths worksheets,
+          and not very happy at the excess momnetization and often-paywalled
+          online versions, I decided to create
+          <a href="//github.com/cooljim/mathsgen">mathsgen</a>, a console-based
+          application which can generate maths worksheets. However, it was
+          janky, weird to work with and most importantly did not have a
+          graphical user interface, which many initial beta testers of mathsgen
+          wanted. So, I decided to look into options to move my existing backend
+          logic and somehow slap that <i>nice</i> GUI on it. I decided to use
+          Electron as the frontend engine, and after some tinkering I found out
+          the basics and moved most of the backend logic from mathsgen to this
+          application. Mathsgen will still recieve periodic patch updates,
+          however all new features will be added here. Mathsgen is officially
+          deprecated, and (when I get round to it) I will put up deprecation
+          warnings on it's repo.
+        </p>
       </div>
     </div>
   </body>
