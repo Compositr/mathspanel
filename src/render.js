@@ -6,6 +6,8 @@ const fs = require("fs");
 const path = require("path");
 const savePreset = require("./tools/savePreset").execute;
 const db = require("./database/index");
+const { title } = require("process");
+
 
 /**
  * ---------------------------------
@@ -50,8 +52,8 @@ $("#submitPresetModal").on("click", () => {
   serialFormData.forEach((e) => {
     formData[e.name] = e.value;
   });
-  console.table(formData)
-  console.log(serialFormData)
+  console.table(formData);
+  console.log(serialFormData);
   savePreset(formData);
 });
 
@@ -188,9 +190,9 @@ window.addEventListener(
 );
 
 /**
- * ----------
- * Tooltips
- * ----------
+ * ------------------------------
+ * Tooltips and popovers
+ * ------------------------------
  */
 var tooltipTriggerList = [].slice.call(
   document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -198,3 +200,42 @@ var tooltipTriggerList = [].slice.call(
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl);
 });
+
+var popoverTriggerList = [].slice.call(
+  document.querySelectorAll('[data-bs-toggle="popover"]')
+);
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl);
+});
+
+/**
+ * --------------------
+ * Popover tour
+ * --------------------
+ */
+if(!db.get("tourDone")) {
+introJs().setOptions({
+  steps: [
+    {
+      title: "Welcome",
+      intro: "👋 Hello there! Let's get you familiarised with Maths Panel... So what is Maths Panel anyways?\nMaths Panel is a simple app designed to generate maths worksheets. Lets get you familiarised with the app then!",
+    },
+    {
+      element: document.querySelector("#createWorksheetButton"),
+      title: "Creating worksheets",
+      intro: "To create a worksheet, click here and fill in the fields."
+    },
+    {
+      element: document.querySelector("#createTemplateButton"),
+      title: "Templates? What are they?",
+      intro: "Temaplates allow you to save a premade worksheet 'template' with predetermined fields, so you can instantly and quickly generate a worksheet of a specific type in a click of a button"
+    },
+    {
+      element: document.querySelector("#infoNavbarLink"),
+      title: "More info",
+      intro: "More information found on that page!"
+    }
+  ],
+}).start();
+db.set("tourDone", 1)
+}
