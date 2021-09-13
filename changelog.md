@@ -1,4 +1,7 @@
 <!-- @format -->
+# v2.0.0 - GUI Update
+- Totally revamped GUI
+- Preset system revamped (old presets made before this update are no longer compatible, sorry!)
 
 # v1.2.1 - Algebra Update Patch 1
 
