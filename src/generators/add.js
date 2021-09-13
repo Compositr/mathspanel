@@ -4,7 +4,7 @@ const { randomInt } = require("mathjs");
 
 module.exports = {
   name: "addition",
-  execute: (questionAmount, high, low) => {
+  execute: (questionAmount, low, high) => {
     const questions = [];
     for (let index = 0; index < questionAmount; index++) {
       const first = randomInt(low, high);
