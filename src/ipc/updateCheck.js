@@ -18,7 +18,7 @@ module.exports = {
     console.log(update);
     event.reply("reply", {
       type: "version",
-      payload: compare(version, update) === -1 ? version : false,
+      payload: compare(version, update) === -1 ? update : false,
     });
   },
 };
