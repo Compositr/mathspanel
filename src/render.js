@@ -132,20 +132,6 @@ ipcRenderer.on("reply", (event, data) => {
 function fetchForm() {
   return new FormData(document.querySelector("form#query"));
 }
-
-/**
- * ----------------------------------------------------------------------
- * Visually indicate that the app is busy (show and hide #busy)
- * ----------------------------------------------------------------------
- */
-
-function showBusy() {
-  document.getElementById("busy").style.display = "block";
-}
-function ceaseBusy() {
-  document.getElementById("busy").style.display = "none";
-}
-
 /**
  * --------------------
  * Update Detection
