@@ -123,14 +123,7 @@ ipcRenderer.on("reply", (event, data) => {
   }
 });
 
-/**
- * --------------------
- * Fetch form data
- * --------------------
- */
-function fetchForm() {
-  return new FormData(document.querySelector("form#query"));
-}
+
 /**
  * --------------------
  * Update Detection
