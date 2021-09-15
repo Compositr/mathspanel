@@ -57,7 +57,9 @@ You should have received a copy of the GNU General Public License along with thi
         <div class="collapse navbar-collapse">
           <div class="navbar-nav">
             <a href="index.html" class="nav-link active">Generate Worksheets</a>
-            <a href="information.html" class="nav-link" id="infoNavbarLink">Information</a>
+            <a href="information.html" class="nav-link" id="infoNavbarLink"
+              >Information</a
+            >
           </div>
         </div>
       </div>
@@ -245,6 +247,39 @@ You should have received a copy of the GNU General Public License along with thi
               id="submitPresetModal"
             >
               <i class="bi bi-save-fill"></i> Save Template
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="updateCheck"
+      tabindex="-1"
+      aria-labelledby="updateCheckLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateCheckLabel">
+              Checked for updates
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="updates"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
             </button>
           </div>
         </div>
