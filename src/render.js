@@ -110,6 +110,7 @@ for (const file of ipcFiles) {
   ipcs[ipc.event] = ipc;
 }
 ipcRenderer.on("reply", (event, data) => {
+  if (data === false) return;
   const { type } = data;
   if (!replyTypes.includes(type))
     throw new Error(`${type} is not a valid type`);
