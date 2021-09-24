@@ -1,8 +1,19 @@
 /** @format */
 
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, autoUpdater } = require("electron");
 const path = require("path");
 const fs = require("fs");
+
+/**
+ * --------------------
+ * Autoupdater
+ * --------------------
+ */
+const deployServer = "https://mathspanel-updater.vercel.app/"
+const url = `${deployServer}/update/${process.platform}/${app.getVersion()}/`
+console.log(process.platform)
+
+autoUpdater.setFeedURL({ url })
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
