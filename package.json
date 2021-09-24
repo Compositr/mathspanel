@@ -51,7 +51,7 @@
     "gulp": "^4.0.2",
     "jquery": "^3.6.0",
     "jspdf": "^2.3.1",
-    "mathjs": "^9.4.4",
+    "mathjs": "^9.5.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
