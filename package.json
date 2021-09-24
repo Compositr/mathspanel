@@ -51,12 +51,12 @@
     "gulp": "^4.0.2",
     "jquery": "^3.6.0",
     "jspdf": "^2.3.1",
-    "mathjs": "^9.4.4",
+    "mathjs": "^9.5.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.60",
-    "@electron-forge/maker-deb": "^6.0.0-beta.60",
+    "@electron-forge/maker-deb": "^6.0.0-beta.61",
     "@electron-forge/maker-rpm": "^6.0.0-beta.60",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
     "@electron-forge/maker-zip": "^6.0.0-beta.60",
