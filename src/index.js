@@ -4,6 +4,11 @@ const { app, BrowserWindow, ipcMain, autoUpdater, dialog } = require("electron")
 const path = require("path");
 const fs = require("fs");
 
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+if (require("electron-squirrel-startup")) {
+  app.quit();
+}
+
 /**
  * --------------------
  * Autoupdater
@@ -26,10 +31,7 @@ autoUpdater.on("update-downloaded", (event, releaseNotes, releaseName) => {
 })
 
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require("electron-squirrel-startup")) {
-  app.quit();
-}
+
 
 const createWindow = () => {
   // Create the browser window.
