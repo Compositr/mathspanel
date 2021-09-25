@@ -1213,11 +1213,6 @@
   "resolved" "https://registry.npmjs.org/compare-version/-/compare-version-0.1.2.tgz"
   "version" "0.1.2"
 
-"compare-versions@^3.6.0":
-  "integrity" "sha512-W6Af2Iw1z4CB7q4uU4hv646dW9GQuBM+YpC0UvUCWSD8w90SJjp+ujJuXaEMtAXBtSqGfMPuFOVn4/+FlaqfBA=="
-  "resolved" "https://registry.npmjs.org/compare-versions/-/compare-versions-3.6.0.tgz"
-  "version" "3.6.0"
-
 "complex.js@^2.0.15":
   "integrity" "sha512-gDBvQU8IG139ZBQTSo2qvDFP+lANMGluM779csXOr6ny1NUtA3wkUnCFjlDNH/moAVfXtvClYt6G0zarFbtz5w=="
   "resolved" "https://registry.npmjs.org/complex.js/-/complex.js-2.0.15.tgz"
@@ -2385,7 +2380,7 @@
   dependencies:
     "sparkles" "^1.0.0"
 
-"got@^11.7.0", "got@^11.8.2":
+"got@^11.7.0":
   "integrity" "sha512-D0QywKgIe30ODs+fm8wMZiAcZjypcCodPNuMz5H9Mny7RJ+IjJ10BdmGW7OM7fHXP+O7r6ZwapQ/YQmMSvB0UQ=="
   "resolved" "https://registry.npmjs.org/got/-/got-11.8.2.tgz"
   "version" "11.8.2"
