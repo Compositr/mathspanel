@@ -20,7 +20,7 @@ console.log(process.platform)
 
 autoUpdater.setFeedURL({ url })
 autoUpdater.checkForUpdates()
-autoUpdater.on("update-downloaded", (event, releaseNotes, releaseName) => {
+autoUpdater.on("update-downloaded", (_event, releaseNotes, _releaseName) => {
   const dialogOpts = {
     type: "info",
     buttons: ["Restart App & Install", "Maybe Later"],
