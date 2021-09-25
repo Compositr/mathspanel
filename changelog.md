@@ -1,4 +1,12 @@
 <!-- @format -->
+# v2.0.1 GUI Update Patch 1
+- Added working autoupdater 8c9513f
+- Cleaned up dependencies. Removed: b8d287b
+  - gulp
+  - got
+  - compare-versions
+- Fixed app sometimes not starting for the first time
+
 # v2.0.0 - GUI Update
 - Totally revamped GUI
 - Preset system revamped (old presets made before this update are no longer compatible, sorry!)

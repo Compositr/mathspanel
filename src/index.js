@@ -1,6 +1,6 @@
 /** @format */
 
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, autoUpdater, dialog } = require("electron");
 const path = require("path");
 const fs = require("fs");
 
@@ -8,6 +8,30 @@ const fs = require("fs");
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
+
+/**
+ * --------------------
+ * Autoupdater
+ * --------------------
+ */
+const deployServer = "https://mathspanel-updater.vercel.app"
+const url = `${deployServer}/update/${process.platform}/${app.getVersion()}`
+console.log(process.platform)
+
+autoUpdater.setFeedURL({ url })
+autoUpdater.checkForUpdates()
+autoUpdater.on("update-downloaded", (event, releaseNotes, releaseName) => {
+  const dialogOpts = {
+    type: "info",
+    buttons: ["Restart App & Install", "Maybe Later"],
+    message: releaseNotes,
+    detail: "A new version of Maths Panel is avaliable. Press Restart App & Install to begin installation"
+  }
+  dialog.showMessageBox(dialogOpts).then(r => {if(r.response === 0) {autoUpdater.quitAndInstall()}})
+})
+
+
+
 
 const createWindow = () => {
   // Create the browser window.

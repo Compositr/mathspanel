@@ -6,7 +6,6 @@ const fs = require("fs");
 const path = require("path");
 const savePreset = require("./tools/savePreset").execute;
 const db = require("./database/index");
-const { title } = require("process");
 
 
 /**
@@ -111,6 +110,7 @@ for (const file of ipcFiles) {
   ipcs[ipc.event] = ipc;
 }
 ipcRenderer.on("reply", (event, data) => {
+  if (data === false) return;
   const { type } = data;
   if (!replyTypes.includes(type))
     throw new Error(`${type} is not a valid type`);
@@ -124,27 +124,6 @@ ipcRenderer.on("reply", (event, data) => {
   }
 });
 
-/**
- * --------------------
- * Fetch form data
- * --------------------
- */
-function fetchForm() {
-  return new FormData(document.querySelector("form#query"));
-}
-
-/**
- * ----------------------------------------------------------------------
- * Visually indicate that the app is busy (show and hide #busy)
- * ----------------------------------------------------------------------
- */
-
-function showBusy() {
-  document.getElementById("busy").style.display = "block";
-}
-function ceaseBusy() {
-  document.getElementById("busy").style.display = "none";
-}
 
 /**
  * --------------------
