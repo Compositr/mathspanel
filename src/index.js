@@ -18,7 +18,7 @@ autoUpdater.checkForUpdates()
 autoUpdater.on("update-downloaded", (event, releaseNotes, releaseName) => {
   const dialogOpts = {
     type: "info",
-    button: ["Restart App & Install", "Maybe Later"],
+    buttons: ["Restart App & Install", "Maybe Later"],
     message: releaseNotes,
     detail: "A new version of Maths Panel is avaliable. Press Restart App & Install to begin installation"
   }
