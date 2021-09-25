@@ -9,11 +9,12 @@ const fs = require("fs");
  * Autoupdater
  * --------------------
  */
-const deployServer = "https://mathspanel-updater.vercel.app/"
-const url = `${deployServer}/update/${process.platform}/${app.getVersion()}/`
+const deployServer = "https://mathspanel-updater.vercel.app"
+const url = `${deployServer}/update/${process.platform}/${app.getVersion()}`
 console.log(process.platform)
 
 autoUpdater.setFeedURL({ url })
+autoUpdater.checkForUpdates()
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
