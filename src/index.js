@@ -1,6 +1,6 @@
 /** @format */
 
-const { app, BrowserWindow, ipcMain, autoUpdater } = require("electron");
+const { app, BrowserWindow, ipcMain, autoUpdater, dialog } = require("electron");
 const path = require("path");
 const fs = require("fs");
 
@@ -15,6 +15,16 @@ console.log(process.platform)
 
 autoUpdater.setFeedURL({ url })
 autoUpdater.checkForUpdates()
+autoUpdater.on("update-downloaded", (event, releaseNotes, releaseName) => {
+  const dialogOpts = {
+    type: "info",
+    button: ["Restart App & Install", "Maybe Later"],
+    message: releaseNotes,
+    detail: "A new version of Maths Panel is avaliable. Press Restart App & Install to begin installation"
+  }
+  dialog.showMessageBox(dialogOpts).then(r => {if(r.response === 0) {autoUpdater.quitAndInstall()}})
+})
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
