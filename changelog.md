@@ -1,6 +1,7 @@
 <!-- @format -->
 
 # v2.0.2 GUI Update Patch 2
+- Forms now automatically clear when user presses the X button to exit.
 
 # v2.0.1 GUI Update Patch 1
 - Added working autoupdater 8c9513f
