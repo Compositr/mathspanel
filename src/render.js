@@ -218,3 +218,10 @@ introJs().setOptions({
 }).start();
 db.set("tourDone", 1)
 }
+
+/**
+ * --------------------
+ * Clear forms
+ * --------------------
+ */
+$(".btn-close").on("click",() => document.querySelector("form#worksheetModalForm").clear())
