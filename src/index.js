@@ -1,4 +1,10 @@
 /** @format */
+/**
+ * @author Jim Ke
+ * @copyright Copyright © 2021 Jim Ke.
+ * @license GPL-3.0-or-later
+ * @file Main file which controls app startup, app close and auto updates
+ */
 
 const { app, BrowserWindow, ipcMain, autoUpdater, dialog } = require("electron");
 const path = require("path");
