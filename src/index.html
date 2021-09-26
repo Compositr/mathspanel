@@ -92,6 +92,43 @@ You should have received a copy of the GNU General Public License along with thi
     </div>
 
     <!-- Modals + Dialogs -->
+    <div
+      class="modal fade"
+      id="confirmTemplate"
+      tabindex="-1"
+      aria-labelledby="confirmTemplateLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmTemplateLabel">
+              Template Saved
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Template successfully saved. To see your new template, press
+            <kbd>Ctrl</kbd>+<kbd>R</kbd>. Closing and reopening the application
+            also works
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="modal fade" id="worksheetModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">

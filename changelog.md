@@ -2,6 +2,7 @@
 
 # v2.0.2 GUI Update Patch 2
 - Forms now automatically clear when user presses the X button to exit.
+- Added modal which alerts user to press <kbd>Ctrl-R</kbd> to reload the app when creating a new template
 
 # v2.0.1 GUI Update Patch 1
 - Added working autoupdater 8c9513f

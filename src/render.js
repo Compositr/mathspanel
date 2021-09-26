@@ -54,6 +54,11 @@ $("#submitPresetModal").on("click", () => {
   console.table(formData);
   console.log(serialFormData);
   savePreset(formData);
+  const confirm = new bootstrap.Modal(document.getElementById("confirmTemplate"), {
+    focus: true,
+    backdrop: "static"
+  })
+  confirm.show()
 });
 
 /**
