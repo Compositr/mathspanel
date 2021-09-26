@@ -16,8 +16,8 @@ if (require("electron-squirrel-startup")) {
  */
 const deployServer = "https://mathspanel-updater.vercel.app"
 const url = `${deployServer}/update/${process.platform}/${app.getVersion()}`
-console.log(process.platform)
 
+if(process.execPath.match(/[\\\/]electron-prebuilt/)) {
 autoUpdater.setFeedURL({ url })
 autoUpdater.checkForUpdates()
 autoUpdater.on("update-downloaded", (_event, releaseNotes, _releaseName) => {
@@ -29,7 +29,7 @@ autoUpdater.on("update-downloaded", (_event, releaseNotes, _releaseName) => {
   }
   dialog.showMessageBox(dialogOpts).then(r => {if(r.response === 0) {autoUpdater.quitAndInstall()}})
 })
-
+}
 
 
 
