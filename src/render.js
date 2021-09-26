@@ -224,4 +224,4 @@ db.set("tourDone", 1)
  * Clear forms
  * --------------------
  */
-$(".btn-close").on("click",() => document.querySelector("form#worksheetModalForm").clear())
+$(".btn-close").on("click",() => {document.getElementById("worksheetModalForm").reset(); console.log("User closed form!")})
