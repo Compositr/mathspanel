@@ -6,7 +6,14 @@
  * @file Main file which controls app startup, app close and auto updates
  */
 
-const { app, BrowserWindow, ipcMain, autoUpdater, dialog } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  autoUpdater,
+  dialog,
+  shell,
+} = require("electron");
 const path = require("path");
 const fs = require("fs");
 
@@ -20,24 +27,27 @@ if (require("electron-squirrel-startup")) {
  * Autoupdater
  * --------------------
  */
-const deployServer = "https://mathspanel-updater.vercel.app"
-const url = `${deployServer}/update/${process.platform}/${app.getVersion()}`
+const deployServer = "https://mathspanel-updater.vercel.app";
+const url = `${deployServer}/update/${process.platform}/${app.getVersion()}`;
 
-if(process.execPath.match(/[\\\/]electron-prebuilt/)) {
-autoUpdater.setFeedURL({ url })
-autoUpdater.checkForUpdates()
-autoUpdater.on("update-downloaded", (_event, releaseNotes, _releaseName) => {
-  const dialogOpts = {
-    type: "info",
-    buttons: ["Restart App & Install", "Maybe Later"],
-    message: releaseNotes,
-    detail: "A new version of Maths Panel is avaliable. Press Restart App & Install to begin installation"
-  }
-  dialog.showMessageBox(dialogOpts).then(r => {if(r.response === 0) {autoUpdater.quitAndInstall()}})
-})
+if (process.execPath.match(/[\\\/]electron-prebuilt/)) {
+  autoUpdater.setFeedURL({ url });
+  autoUpdater.checkForUpdates();
+  autoUpdater.on("update-downloaded", (_event, releaseNotes, _releaseName) => {
+    const dialogOpts = {
+      type: "info",
+      buttons: ["Restart App & Install", "Maybe Later"],
+      message: releaseNotes,
+      detail:
+        "A new version of Maths Panel is avaliable. Press Restart App & Install to begin installation",
+    };
+    dialog.showMessageBox(dialogOpts).then((r) => {
+      if (r.response === 0) {
+        autoUpdater.quitAndInstall();
+      }
+    });
+  });
 }
-
-
 
 const createWindow = () => {
   // Create the browser window.
@@ -48,13 +58,19 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-
     },
   });
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, "index.html"));
   mainWindow.maximize();
+  /**
+   * New window handler
+   */
+  mainWindow.webContents.on("new-window", (e, url) => {
+    e.preventDefault();
+    shell.openExternal(url);
+  });
 };
 
 // This method will be called when Electron has finished
