@@ -58,6 +58,7 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      webgl: true
     },
   });
 
