@@ -1,14 +1,14 @@
 /** @format */
 
-const { randomInt } = require("mathjs");
+const { getRndInteger } = require("utilities/build").default;
 
 module.exports = {
   name: "addition",
   execute: (questionAmount, low, high) => {
     const questions = [];
     for (let index = 0; index < questionAmount; index++) {
-      const first = randomInt(low, high);
-      const last = randomInt(low, high);
+      const first = getRndInteger(low, high);
+      const last = getRndInteger(low, high);
       questions.push({
         answer: first + last,
         question: `${first} + ${last} =`,

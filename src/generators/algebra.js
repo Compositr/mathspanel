@@ -1,6 +1,6 @@
 /** @format */
 
-const { randomInt } = require("mathjs");
+const { getRndInteger: randomInt } = require("utilities/build").default;
 
 const pronumerals = ["a", "y", "x", "z", "e"];
 module.exports = {

@@ -1,6 +1,6 @@
 /** @format */
 
-const { randomInt } = require("mathjs");
+const { getRndInteger: randomInt } = require("utilities/build").default;
 module.exports = {
   name: "division",
   execute: (questionAmount, low, high) => {
